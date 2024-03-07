@@ -74,6 +74,14 @@ dependencies {
     implementation libs.okhttp
 
     testImplementation libs.junit
+
+    //Mock web server
+    testImplementation(libs.mockwebserver)
+
+    //truth
+    testImplementation libs.truth
+
+
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
     androidTestImplementation platform(libs.androidx.compose.bom)
