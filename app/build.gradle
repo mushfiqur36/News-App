@@ -1,8 +1,13 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+
+    // Dagger hilt
     alias(libs.plugins.hiltAndroid)
     id 'kotlin-kapt'
+
+    //Navigation Component
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -41,6 +46,7 @@ android {
     buildFeatures {
         compose true
         buildConfig true
+        viewBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.1'
@@ -89,6 +95,10 @@ dependencies {
     implementation libs.converter.gson
     implementation libs.okhttp
 
+    //Navigation Component
+    implementation libs.androidx.navigation.fragment.ktx
+    implementation libs.androidx.navigation.ui.ktx
+
 
     testImplementation libs.junit
 
@@ -105,4 +115,8 @@ dependencies {
     androidTestImplementation libs.androidx.ui.test.junit4
     debugImplementation libs.androidx.ui.tooling
     debugImplementation libs.androidx.ui.test.manifest
+}
+
+kapt {
+    correctErrorTypes true
 }
