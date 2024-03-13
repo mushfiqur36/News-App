@@ -12,6 +12,7 @@ import androidx.lifecycle.get
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapp.databinding.ActivityMainBinding
+import com.example.newsapp.presenter.adapter.NewsAdapter
 import com.example.newsapp.presenter.viewmodel.NewsViewModel
 import com.example.newsapp.presenter.viewmodel.NewsViewModelFactory
 import com.example.newsapp.ui.theme.NewsAppTheme
@@ -22,6 +23,9 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: NewsViewModelFactory
+
+    @Inject
+    lateinit var newsAdapter: NewsAdapter
     lateinit var viewModel: NewsViewModel
 
     private lateinit var binding: ActivityMainBinding
