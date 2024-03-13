@@ -7,13 +7,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.newsapp.databinding.ActivityMainBinding
+import com.example.newsapp.presenter.viewmodel.NewsViewModel
+import com.example.newsapp.presenter.viewmodel.NewsViewModelFactory
 import com.example.newsapp.ui.theme.NewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var factory: NewsViewModelFactory
+    lateinit var viewModel: NewsViewModel
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(
             navController
         )
+
+        viewModel = ViewModelProvider(this, factory)
+            .get(NewsViewModel::class.java)
     }
 }
 
