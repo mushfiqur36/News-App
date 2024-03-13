@@ -49,7 +49,7 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: Article) {
-
+            println("MYTAG: came here ${article.title}")
             binding.tvTitle.text = article.title
             binding.tvDescription.text = article.description
             binding.tvPublishedAt.text = article.publishedAt
@@ -58,7 +58,18 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             //TODO integrate third party library for image loading and caching. third party lib is not working now
             updateImage(article, binding)
 
+            binding.root.setOnClickListener {
+                onItemClickListener?.let {
+                    it(article)
+                }
+            }
+
         }
+    }
+
+    private var onItemClickListener: ((Article) -> Unit)? = null
+    fun setOnItemClickListener(listener: (Article) -> Unit) {
+        onItemClickListener = listener
     }
 
     fun updateImage(article: Article, binding: NewsListItemBinding) {

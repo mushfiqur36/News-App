@@ -1,13 +1,13 @@
 package com.example.newsapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.data.util.Resource
@@ -38,6 +38,16 @@ class NewsFragment : Fragment() {
         fragmentNewsBinding = FragmentNewsBinding.bind(view)
         viewModel = (activity as MainActivity).viewModel
         newsAdapter = (activity as MainActivity).newsAdapter
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("selected_article", it)
+                println("news title: ${it.url}")
+            }
+            findNavController().navigate(
+                R.id.action_newsFragment_to_newsDetailsFragment,
+                bundle
+            )
+        }
         initRecyclerView()
         viewNewsList()
     }
@@ -51,10 +61,10 @@ class NewsFragment : Fragment() {
                     response.data?.let {
                         println("MYTAG: came here ${it.articles.toList().size}")
                         newsAdapter.differ.submitList(it.articles.toList())
-                        if(it.totalResults%20 == 0) {
+                        if (it.totalResults % 20 == 0) {
                             pages = it.totalResults / 20
-                        }else{
-                            pages = it.totalResults/20+1
+                        } else {
+                            pages = it.totalResults / 20 + 1
                         }
                         isLastPage = page == pages
                     }
