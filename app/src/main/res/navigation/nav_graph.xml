@@ -28,4 +28,10 @@
         android:name="com.example.newsapp.NewsDetailsFragment"
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details" />
+
+    <fragment
+        android:id="@+id/reactViewFragment"
+        android:name="com.example.newsapp.ReactViewFragment"
+        android:label="fragment_react_view"
+        tools:layout="@layout/fragment_react_view" />
 </navigation>

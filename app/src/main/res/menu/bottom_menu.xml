@@ -9,4 +9,8 @@
         android:id="@+id/savedNewsFragment"
         android:icon="@drawable/ic_save"
         android:title="Saved News" />
+    <item
+        android:id="@+id/reactViewFragment"
+        android:icon="@drawable/ic_backup_table"
+        android:title="React View" />
 </menu>
