@@ -11,9 +11,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +24,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -40,3 +43,68 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/*edited form here*/
+.list-view {
+  max-width: 600px;
+  margin: auto;
+}
+
+.list-item {
+  background-color: #f8f8f8;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.item-content {
+  display: flex;
+  margin-bottom: 10px; 
+}
+
+.item-image {
+  width: 100px; 
+  height: 100px; 
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.item-description, .item-published, .item-source {
+  font-size: 14px;
+  color: #666;
+  margin: 2px 0;
+}
+
+.list-item:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+@media (max-width: 768px) {
+  .item-content {
+    flex-direction: column;
+  }
+
+  .item-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+}
+
+

@@ -35,9 +35,9 @@ class ReactViewFragment : Fragment() {
             webView.webViewClient = WebViewClient()
 
             webView.loadUrl("http://192.168.2.37:5173")
-            println("webview is loaded")
+            println("react view: loaded")
         } catch (e: Exception) {
-            println("webview: ${e.message}")
+            println("react view: ${e.message}")
         }
     }
 
