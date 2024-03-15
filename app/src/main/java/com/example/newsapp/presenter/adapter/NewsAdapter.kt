@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.databinding.NewsListItemBinding
 import java.io.IOException
@@ -55,8 +56,9 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             binding.tvPublishedAt.text = article.publishedAt
             binding.tvSource.text = article.source.name
 
-            //TODO integrate third party library for image loading and caching. third party lib is not working now
-            updateImage(article, binding)
+            Glide.with(binding.ivArticleImage.context)
+                .load(article.urlToImage)
+                .into(binding.ivArticleImage)
 
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
@@ -70,26 +72,5 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     private var onItemClickListener: ((Article) -> Unit)? = null
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
-    }
-
-    fun updateImage(article: Article, binding: NewsListItemBinding) {
-        val executor = Executors.newFixedThreadPool(4)
-        executor.execute {
-            try {
-                val url = URL(article.urlToImage)
-                val connection = url.openConnection() as HttpURLConnection
-                connection.doInput = true
-                connection.connect()
-                val inputStream = connection.inputStream
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-
-                val handler = Handler(Looper.getMainLooper())
-                handler.post {
-                    binding.ivArticleImage.setImageBitmap(bitmap)
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
     }
 }

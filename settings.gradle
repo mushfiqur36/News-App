@@ -1,5 +1,7 @@
 pluginManagement {
     repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
