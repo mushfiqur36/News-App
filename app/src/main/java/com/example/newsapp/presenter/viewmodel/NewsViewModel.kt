@@ -9,9 +9,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.data.model.APIResponse
+import com.example.newsapp.data.model.Article
 import com.example.newsapp.data.util.Resource
 import com.example.newsapp.domain.usecase.GetNewsHeadlinesUseCase
 import com.example.newsapp.domain.usecase.GetSearchedNewsUseCase
+import com.example.newsapp.domain.usecase.SaveNewsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.http.Query
@@ -20,7 +22,8 @@ import java.lang.Exception
 class NewsViewModel(
     private val app: Application,
     private val getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase,
-    private val getSearchedNewsUseCase: GetSearchedNewsUseCase
+    private val getSearchedNewsUseCase: GetSearchedNewsUseCase,
+    private val saveNewsUseCase: SaveNewsUseCase
 ) : AndroidViewModel(app) {
 
     val newsHeadLines: MutableLiveData<Resource<APIResponse>> = MutableLiveData()
@@ -55,6 +58,10 @@ class NewsViewModel(
                 searchedNews.postValue(Resource.Error(e.message.toString()))
             }
         }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        saveNewsUseCase.execute(article)
+    }
 
     @Suppress("DEPRECATION")
     private fun isInternetAvailable(context: Context): Boolean {
