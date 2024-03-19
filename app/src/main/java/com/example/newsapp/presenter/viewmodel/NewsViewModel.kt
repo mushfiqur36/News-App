@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapp.data.model.APIResponse
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.data.util.Resource
+import com.example.newsapp.domain.usecase.DeleteSavedNewsUseCase
 import com.example.newsapp.domain.usecase.GetNewsHeadlinesUseCase
 import com.example.newsapp.domain.usecase.GetSavedNewsUseCase
 import com.example.newsapp.domain.usecase.GetSearchedNewsUseCase
@@ -26,7 +27,8 @@ class NewsViewModel(
     private val getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase,
     private val getSearchedNewsUseCase: GetSearchedNewsUseCase,
     private val saveNewsUseCase: SaveNewsUseCase,
-    private val getSavedNewsUseCase: GetSavedNewsUseCase
+    private val getSavedNewsUseCase: GetSavedNewsUseCase,
+    private val deleteSavedNewsUseCase: DeleteSavedNewsUseCase
 ) : AndroidViewModel(app) {
 
     val newsHeadLines: MutableLiveData<Resource<APIResponse>> = MutableLiveData()
@@ -70,6 +72,10 @@ class NewsViewModel(
         getSavedNewsUseCase.execute().collect {
             emit(it)
         }
+    }
+
+    fun deleteSavedNews(article: Article) = viewModelScope.launch {
+        deleteSavedNewsUseCase.execute(article)
     }
 
     @Suppress("DEPRECATION")
